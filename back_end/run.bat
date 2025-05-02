@@ -1,0 +1,3 @@
+@echo off
+echo Starting application with hot reload...
+air

@@ -1,0 +1,18 @@
+INFO: 2025/05/01 12:33:07 upload_controller.go:26: 开始处理图片上传
+INFO: 2025/05/01 12:33:07 upload_controller.go:35: 接收到文件: 411e1fa3-8b94-4cf6-ac2d-8d454997b927.jpg, 大小: 442911 bytes
+INFO: 2025/05/01 12:33:07 upload_controller.go:47: 生成的文件名: fbf6febf-bcfe-49b0-ace7-991c7aa6e0f3.jpg
+INFO: 2025/05/01 12:33:07 upload_controller.go:57: 创建临时文件: C:\Users\87963\AppData\Local\Temp\upload-2033534042.jpg
+INFO: 2025/05/01 12:33:07 upload_controller.go:68: 准备上传到OSS，Bucket: user-avatar-test
+INFO: 2025/05/01 12:33:07 upload_controller.go:79: 开始上传文件到OSS，对象名: images/2025/05/01/fbf6febf-bcfe-49b0-ace7-991c7aa6e0f3.jpg
+INFO: 2025/05/01 12:33:07 upload_controller.go:90: 文件上传成功，访问URL: https://user-avatar-test.oss-cn-beijing.aliyuncs.com/images/2025/05/01/fbf6febf-bcfe-49b0-ace7-991c7aa6e0f3.jpg
+INFO: 2025/05/01 12:33:11 upload_controller.go:26: 开始处理图片上传
+INFO: 2025/05/01 12:33:11 upload_controller.go:35: 接收到文件: 未命名的设计.jpg, 大小: 542719 bytes
+INFO: 2025/05/01 12:33:11 upload_controller.go:47: 生成的文件名: 66e07e3e-0125-49f6-9e3f-cfb139caae52.jpg
+INFO: 2025/05/01 12:33:11 upload_controller.go:57: 创建临时文件: C:\Users\87963\AppData\Local\Temp\upload-284934046.jpg
+INFO: 2025/05/01 12:33:11 upload_controller.go:68: 准备上传到OSS，Bucket: user-avatar-test
+INFO: 2025/05/01 12:33:11 upload_controller.go:79: 开始上传文件到OSS，对象名: images/2025/05/01/66e07e3e-0125-49f6-9e3f-cfb139caae52.jpg
+INFO: 2025/05/01 12:33:11 upload_controller.go:90: 文件上传成功，访问URL: https://user-avatar-test.oss-cn-beijing.aliyuncs.com/images/2025/05/01/66e07e3e-0125-49f6-9e3f-cfb139caae52.jpg
+INFO: 2025/05/01 12:33:24 guide_controller.go:102: 开始创建新攻略
+INFO: 2025/05/01 12:33:24 guide_controller.go:117: 用户 1 开始创建攻略
+INFO: 2025/05/01 12:33:24 guide_controller.go:125: 处理图片列表: ["https://user-avatar-test.oss-cn-beijing.aliyuncs.com/images/2025/05/01/fbf6febf-bcfe-49b0-ace7-991c7aa6e0f3.jpg","https://user-avatar-test.oss-cn-beijing.aliyuncs.com/images/2025/05/01/66e07e3e-0125-49f6-9e3f-cfb139caae52.jpg"]
+INFO: 2025/05/01 12:33:24 guide_controller.go:165: 攻略创建成功，ID: 8

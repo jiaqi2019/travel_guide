@@ -1,0 +1,32 @@
+
+####
+POST http://localhost:8080/api/register
+Content-Type: application/json
+
+{
+  "Username": "admin",
+  "Password": "123456",
+  "nickname": "admin"
+}
+
+####
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+
+
+
+####
+POST http://localhost:8080/api/upload/image
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3NDU3MjQ5MjMsIm5iZiI6MTc0NTYzODUyMywiaWF0IjoxNzQ1NjM4NTIzfQ.Wq1Ao98qC0xpXtPs9fuO2QgE-lRA-XP3qqCgUG7XrAU
+
+{
+  "Username": "admin",
+  "Password": "123456"
+}
