@@ -2,8 +2,6 @@ package models
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 // UserRole represents the role of a user
@@ -23,29 +21,39 @@ const (
 )
 
 type User struct {
-	gorm.Model
-	Username  string     `gorm:"unique;not null"`
-	Password  string     `gorm:"not null"`
-	Nickname  string     `gorm:"size:50"`
-	AvatarURL string     `gorm:"size:255"`
-	Role      UserRole   `gorm:"type:varchar(10);not null;default:'user'"`   //用户角色
-	Status    UserStatus `gorm:"type:varchar(10);not null;default:'active'"` //用户状态 是否封禁
+	ID        uint      `gorm:"primaryKey;autoIncrement"`
+	Username  string    `gorm:"unique;not null;size:50"`
+	Password  string    `gorm:"not null;size:255"`
+	Nickname  string    `gorm:"not null;size:100"`
+	AvatarURL string    `gorm:"size:255"`
+	Role      UserRole  `gorm:"type:enum('admin','user');not null;default:'user'"`
+	Status    UserStatus `gorm:"type:enum('active','banned');not null;default:'active'"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+	DeletedAt *time.Time
 	Guides    []TravelGuide
+	Tags      []Tag     `gorm:"many2many:user_tags;joinForeignKey:user_id;joinReferences:tag_id"`
 }
 
 type TravelGuide struct {
-	gorm.Model
-	Title       string    `gorm:"not null;type:varchar(255)"`
-	Content     string    `gorm:"type:text;not null"`
-	Images      string    `gorm:"type:text"` // Store image URLs as JSON string
+	ID          uint      `gorm:"primaryKey;autoIncrement"`
+	Title       string    `gorm:"not null;size:255"`
+	Content     string    `gorm:"not null;type:text"`
+	Images      string    `gorm:"type:text"`
 	UserID      uint      `gorm:"not null"`
 	User        User      `gorm:"foreignKey:UserID"`
 	PublishedAt time.Time `gorm:"not null"`
-	Tags        []Tag     `gorm:"many2many:guide_tags;"`
+	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+	DeletedAt   *time.Time
+	Tags        []Tag     `gorm:"many2many:guide_tags;joinForeignKey:guide_id;joinReferences:tag_id"`
 }
 
 type Tag struct {
-	gorm.Model
-	Name   string        `gorm:"unique;not null"`
-	Guides []TravelGuide `gorm:"many2many:guide_tags;"`
+	ID        uint      `gorm:"primaryKey;autoIncrement"`
+	Name      string    `gorm:"unique;not null;size:50"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+	DeletedAt *time.Time
+	Guides    []TravelGuide `gorm:"many2many:guide_tags;joinForeignKey:tag_id;joinReferences:guide_id"`
 }

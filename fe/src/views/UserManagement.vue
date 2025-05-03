@@ -6,6 +6,19 @@
       <el-table-column prop="username" label="用户名"  />
       <el-table-column prop="nickname" label="昵称"  />
       <el-table-column prop="guide_count" label="发文数" />
+      <el-table-column label="兴趣标签">
+        <template #default="{ row }">
+          <el-tag
+            v-for="tag in row.tags"
+            :key="tag"
+            class="mr-1"
+            size="small"
+            type="warning"
+          >
+            {{ tag }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="role" label="角色" >
         <template #default="{ row }">
           <el-tag :type="row.role === 'admin' ? 'danger' : 'info'">

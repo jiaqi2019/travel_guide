@@ -64,6 +64,7 @@ type UserListResponse struct {
 	Status     string    `json:"status"`
 	GuideCount int64     `json:"guide_count"`
 	CreatedAt  time.Time `json:"created_at"`
+	Tags       []string  `json:"tags"`
 }
 
 type GetUsersRequest struct {
@@ -241,6 +242,7 @@ func (uc *UserController) GetUsers(c *gin.Context) {
 
 	// 获取分页数据
 	if err := uc.DB.Model(&models.User{}).
+		Preload("Tags").
 		Select("users.*, COUNT(guides.id) as guide_count").
 		Joins("LEFT JOIN travel_guides as guides ON guides.user_id = users.id").
 		Group("users.id").
@@ -261,6 +263,12 @@ func (uc *UserController) GetUsers(c *gin.Context) {
 	// 转换响应格式
 	var userResponses []UserListResponse
 	for _, user := range users {
+		// 提取标签名称
+		tagNames := make([]string, len(user.Tags))
+		for i, tag := range user.Tags {
+			tagNames[i] = tag.Name
+		}
+
 		userResponses = append(userResponses, UserListResponse{
 			ID:         user.ID,
 			Username:   user.Username,
@@ -270,6 +278,7 @@ func (uc *UserController) GetUsers(c *gin.Context) {
 			Status:     string(user.Status),
 			GuideCount: user.GuideCount,
 			CreatedAt:  user.CreatedAt,
+			Tags:       tagNames,
 		})
 	}
 

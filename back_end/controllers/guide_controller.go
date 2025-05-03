@@ -219,7 +219,7 @@ func (gc *GuideController) SearchGuides(c *gin.Context) {
 
 	// 如果有标签过滤条件，添加标签过滤
 	if tag != "" {
-		query = query.Joins("JOIN guide_tags ON guide_tags.travel_guide_id = travel_guides.id").
+		query = query.Joins("JOIN guide_tags ON guide_tags.guide_id = travel_guides.id").
 			Joins("JOIN tags ON tags.id = guide_tags.tag_id").
 			Where("tags.name = ?", tag)
 	}
@@ -321,7 +321,7 @@ func (gc *GuideController) GetGuides(c *gin.Context) {
 
 	// 如果有tag参数，添加tag过滤
 	if req.Tag != "" {
-		query = query.Joins("JOIN guide_tags ON guide_tags.travel_guide_id = travel_guides.id").
+		query = query.Joins("JOIN guide_tags ON guide_tags.guide_id = travel_guides.id").
 			Joins("JOIN tags ON tags.id = guide_tags.tag_id").
 			Where("tags.name = ?", req.Tag).
 			Group("travel_guides.id") // 添加分组避免重复
@@ -416,6 +416,87 @@ func (gc *GuideController) GetSearchSuggestions(c *gin.Context) {
 
 	c.JSON(http.StatusOK, types.SuccessResponse(
 		SearchSuggestionResponse{Suggestions: suggestions},
+		"获取推荐成功",
+	))
+}
+
+// GetUserRecommendations 获取用户推荐攻略
+func (gc *GuideController) GetUserRecommendations(c *gin.Context) {
+	keyword := c.Query("keyword")
+	offset, _ := c.GetQuery("offset")
+	limit, _ := c.GetQuery("limit")
+
+	// 设置默认值
+	offsetInt := 0
+	limitInt := 10
+	if offset != "" {
+		offsetInt, _ = strconv.Atoi(offset)
+	}
+	if limit != "" {
+		limitInt, _ = strconv.Atoi(limit)
+	}
+	if limitInt <= 0 {
+		limitInt = 10
+	}
+
+	// 获取当前用户ID
+	userID, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusOK, types.ErrorResponse(1, "未授权"))
+		return
+	}
+
+	logger.InfoLogger.Printf("获取用户推荐 - 用户ID: %v, 关键词: %s, 偏移: %d, 限制: %d", userID, keyword, offsetInt, limitInt)
+
+	// 构建基础查询
+	query := gc.db.Model(&models.TravelGuide{}).
+		Preload("User").
+		Preload("Tags")
+
+	// 检查用户是否有标签
+	var userTagCount int64
+	gc.db.Table("user_tags").Where("user_id = ?", userID).Count(&userTagCount)
+
+	// 如果用户有标签，则按标签过滤
+	if userTagCount > 0 {
+		query = query.Joins("JOIN guide_tags ON guide_tags.guide_id = travel_guides.id").
+			Joins("JOIN user_tags ON user_tags.tag_id = guide_tags.tag_id").
+			Where("user_tags.user_id = ?", userID)
+	}
+
+	// 添加关键词搜索条件
+	if keyword != "" {
+		query = query.Where("(travel_guides.title LIKE ? OR travel_guides.content LIKE ?)", 
+			"%"+keyword+"%", "%"+keyword+"%")
+	}
+
+	// 获取总数
+	var total int64
+	query.Count(&total)
+
+	// 查询数据
+	var guides []models.TravelGuide
+	query.Offset(offsetInt).Limit(limitInt + 1).Find(&guides) // 多查询一条用于判断是否还有更多
+
+	// 处理分页结果
+	hasMore := false
+	if len(guides) > limitInt {
+		hasMore = true
+		guides = guides[:limitInt] // 去掉多查询的一条
+	}
+
+	// 转换响应格式
+	guideResponses := make([]types.GuideResponse, 0, len(guides))
+	for _, guide := range guides {
+		guideResponses = append(guideResponses, toGuideResponse(guide))
+	}
+
+	c.JSON(http.StatusOK, types.SuccessResponse(
+		gin.H{
+			"list":    guideResponses,
+			"hasMore": hasMore,
+			"total":   total,
+		},
 		"获取推荐成功",
 	))
 }

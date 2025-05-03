@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS travel_guides (
     images TEXT,
     user_id BIGINT UNSIGNED NOT NULL,
     published_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMES  TAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
@@ -57,12 +57,46 @@ CREATE TABLE IF NOT EXISTS guide_tags (
     INDEX idx_tag_id (tag_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT IGNORE INTO tags (name) VALUES 
-('自然风光'),
-('美食'),
-('亲子'),
-('人文历史'),
-('其他');
+-- 用户-标签关联表
+CREATE TABLE IF NOT EXISTS user_tags (
+    user_id BIGINT UNSIGNED NOT NULL,
+    tag_id BIGINT UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, tag_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (tag_id) REFERENCES tags(id),
+    INDEX idx_tag_id (tag_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 将用户名为 admin 的用户角色设置为管理员
-UPDATE users SET role = 'admin' WHERE username = 'admin';
+-- 插入初始标签
+INSERT IGNORE INTO tags (name) VALUES 
+-- 旅行类型
+('自然风光'),
+('城市探索'),
+('海岛度假'),
+('乡村田园'),
+('高原雪山'),
+('沙漠戈壁'),
+('森林徒步'),
+('草原牧场');
+
+-- 插入模拟用户数据
+INSERT IGNORE INTO users (username, password, nickname, avatar_url, role) VALUES 
+('admin', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', 'admin', 'https://api.dicebear.com/7.x/initials/svg?seed=admin', 'admin'),
+('travel_lover', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', '旅行爱好者', 'https://api.dicebear.com/7.x/initials/svg?seed=旅行爱好者', 'user'),
+('food_explorer', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', '美食探索家', 'https://api.dicebear.com/7.x/initials/svg?seed=美食探索家', 'user'),
+('nature_seeker', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', '自然追寻者', 'https://api.dicebear.com/7.x/initials/svg?seed=自然追寻者', 'user'),
+('city_wanderer', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', '城市漫游者', 'https://api.dicebear.com/7.x/initials/svg?seed=城市漫游者', 'user'),
+('adventure_seeker', '$2a$10$CPmq3FF9E9Vf622Tt5bSmOAKLATwZraADO3haRCcMGcHeU7lfJakC', '冒险家', 'https://api.dicebear.com/7.x/initials/svg?seed=冒险家', 'user');
+
+-- 插入用户标签关联数据
+INSERT IGNORE INTO user_tags (user_id, tag_id) 
+SELECT u.id, t.id 
+FROM users u 
+CROSS JOIN tags t 
+WHERE 
+    (u.username = 'travel_lover' AND t.name IN ('自然风光', '城市探索', '海岛度假')) OR
+    (u.username = 'food_explorer' AND t.name IN ('城市探索', '乡村田园')) OR
+    (u.username = 'nature_seeker' AND t.name IN ('自然风光', '高原雪山', '森林徒步', '草原牧场')) OR
+    (u.username = 'city_wanderer' AND t.name IN ('城市探索', '海岛度假')) OR
+    (u.username = 'adventure_seeker' AND t.name IN ('高原雪山', '沙漠戈壁', '森林徒步'));

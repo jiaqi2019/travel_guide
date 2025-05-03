@@ -9,7 +9,7 @@
       :empty-title="'暂无内容'"
       :empty-subtitle="'尝试其他操作'"
       :empty-description="'暂无内容'"
-      @load-more="fetchGuides"
+      @load-more="handleLoadMore"
       @tag-click="handleTagClick"
     />
 
@@ -81,37 +81,56 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import GuideWaterfallList from '../components/GuideWaterfallList.vue';
-import { getGuides, getTags } from '../api/index';
+import { getGuides, getTags, getRecommendations } from '../api/index';
 import { Loading, Close } from '@element-plus/icons-vue'
+import { useAuthStore } from '../store/auth';
 
-const activeTag = ref('全部');
+const authStore = useAuthStore();
+const isLoggedIn = computed(() => authStore.isLoggedIn);
+const activeTag = ref(isLoggedIn.value ? '猜你喜欢' : '全部');
 const loading = ref(true);
 const loadingMore = ref(false);
 
 // 为每个tag维护独立的数据
-const tagData = ref({
-  '全部': {
-    guides: [],
-    offset: 0,
-    hasMore: true
-  }
-});
+const tagData = ref({});
 
 const fetchTags = async () => {
   try {
+    // 创建一个新的对象来存储标签数据
+    const newTagData = {};
+    
+    // 如果用户已登录，先添加"猜你喜欢"标签
+    if (isLoggedIn.value) {
+      newTagData['猜你喜欢'] = {
+        guides: [],
+        offset: 0,
+        hasMore: true
+      };
+    }
+    
+    // 添加"全部"标签
+    newTagData['全部'] = {
+      guides: [],
+      offset: 0,
+      hasMore: true
+    };
+    
+    // 获取并添加其他标签
     const response = await getTags();
-    // 初始化每个tag的数据
     response.forEach(tag => {
-      if (!tagData.value[tag.name]) {
-        tagData.value[tag.name] = {
+      if (!newTagData[tag.name]) {
+        newTagData[tag.name] = {
           guides: [],
           offset: 0,
           hasMore: true
         };
       }
     });
+    
+    // 更新tagData
+    tagData.value = newTagData;
   } catch (error) {
     console.error('Failed to fetch tags:', error);
   }
@@ -126,15 +145,25 @@ const fetchGuides = async (tag: string, reset = false) => {
   }
   
   try {
-    const {list, has_more} = await getGuides(
-      tagData.value[tag].offset,
-      tag === '全部' ? undefined : tag
-    );
+    let response;
+    if (tag === '猜你喜欢') {
+      response = await getRecommendations(undefined, tagData.value[tag].offset);
+    } else {
+      response = await getGuides(
+        tagData.value[tag].offset,
+        tag === '全部' ? undefined : tag
+      );
+    }
+    
+    const { list, has_more } = response;
     
     if (reset) {
       tagData.value[tag].guides = list;
     } else {
-      tagData.value[tag].guides = [...tagData.value[tag].guides, ...list];
+      // 过滤掉已存在的数据
+      const existingIds = new Set(tagData.value[tag].guides.map(guide => guide.id));
+      const newGuides = list.filter(guide => !existingIds.has(guide.id));
+      tagData.value[tag].guides = [...tagData.value[tag].guides, ...newGuides];
     }
     tagData.value[tag].hasMore = has_more;
     tagData.value[tag].offset = tagData.value[tag].guides.length;
@@ -146,13 +175,53 @@ const fetchGuides = async (tag: string, reset = false) => {
   }
 };
 
+// 添加加载更多的处理函数
+const handleLoadMore = (tag: string) => {
+  console.log('load more', tag, {
+    hasMore: tagData.value[tag].hasMore,
+    loadingMore: loadingMore.value,
+    offset: tagData.value[tag].offset
+  });
+  if (!tagData.value[tag].hasMore || loadingMore.value) return;
+  fetchGuides(tag, false);
+};
+
 const handleTagClick = (tagName: string) => {
+  if (activeTag.value === tagName) return; // 如果点击的是当前标签，直接返回
   activeTag.value = tagName;
   // 如果该tag的数据为空，则加载数据
   if (tagData.value[tagName].guides.length === 0) {
     fetchGuides(tagName, true);
   }
 };
+
+// 监听登录状态变化
+watch(isLoggedIn, (newValue) => {
+  if (!newValue) {
+    // 退出登录时，删除猜你喜欢标签
+    delete tagData.value['猜你喜欢'];
+    // 如果当前是猜你喜欢标签，切换到全部
+    if (activeTag.value === '猜你喜欢') {
+      activeTag.value = '全部';
+      fetchGuides('全部', true);
+    }
+  } else {
+    // 登录时，创建一个新的对象，确保猜你喜欢在第一位
+    const newTagData = {
+      '猜你喜欢': {
+        guides: [],
+        offset: 0,
+        hasMore: true
+      }
+    };
+    // 复制其他标签
+    Object.assign(newTagData, tagData.value);
+    tagData.value = newTagData;
+    // 切换到猜你喜欢标签
+    activeTag.value = '猜你喜欢';
+    fetchGuides('猜你喜欢', true);
+  }
+});
 
 const dialogVisible = ref(false);
 const currentGuide = ref(null);
@@ -174,9 +243,16 @@ const formatDate = (timestamp) => {
   });
 };
 
-onMounted(() => {
-  fetchTags();
-  fetchGuides('全部', true);
+// 添加一个标志来防止重复初始化
+const initialized = ref(false);
+
+onMounted(async () => {
+  if (!initialized.value) {
+    initialized.value = true;
+    await fetchTags();
+    // 主动触发第一个标签的点击事件来加载数据
+    handleTagClick(activeTag.value);
+  }
 });
 </script>
 

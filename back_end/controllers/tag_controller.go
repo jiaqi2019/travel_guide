@@ -69,7 +69,7 @@ func (tc *TagController) GetRelatedTags(c *gin.Context) {
 	// 先获取总数
 	tc.db.Model(&models.Tag{}).
 		Joins("JOIN guide_tags ON guide_tags.tag_id = tags.id").
-		Joins("JOIN travel_guides ON travel_guides.id = guide_tags.travel_guide_id").
+		Joins("JOIN travel_guides ON travel_guides.id = guide_tags.guide_id").
 		Where("travel_guides.title LIKE ? OR travel_guides.content LIKE ?", "%"+keyword+"%", "%"+keyword+"%").
 		Group("tags.id").
 		Count(&totalCount)
@@ -77,7 +77,7 @@ func (tc *TagController) GetRelatedTags(c *gin.Context) {
 	// 获取当前页数据
 	tc.db.Model(&models.Tag{}).
 		Joins("JOIN guide_tags ON guide_tags.tag_id = tags.id").
-		Joins("JOIN travel_guides ON travel_guides.id = guide_tags.travel_guide_id").
+		Joins("JOIN travel_guides ON travel_guides.id = guide_tags.guide_id").
 		Where("travel_guides.title LIKE ? OR travel_guides.content LIKE ?", "%"+keyword+"%", "%"+keyword+"%").
 		Group("tags.id").
 		Order("COUNT(*) DESC").

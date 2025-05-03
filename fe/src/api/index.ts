@@ -127,4 +127,14 @@ export const getRelatedTags = async (keyword: string): Promise<{ list: Tag[], ha
   });
 };
 
+// 获取推荐攻略
+export const getRecommendations = async (
+  keyword?: string,
+  offset: number = 0
+): Promise<GuideListResponse> => {
+  return api.get('/guides/recommendations', {
+    params: { keyword, offset }
+  });
+};
+
 export default api; 

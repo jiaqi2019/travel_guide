@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import GuideWaterfall from '../views/GuideWaterfall.vue';
+import Feed from '../views/Feed.vue';
 import PublishGuide from '../views/PublishGuide.vue';
 import UserManagement from '../views/UserManagement.vue';
 import SearchResults from '../views/SearchResults.vue';
@@ -8,7 +8,7 @@ import { useAuthStore } from '../store/auth';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: GuideWaterfall,
+    component: Feed,
   },
   {
     path: '/search',

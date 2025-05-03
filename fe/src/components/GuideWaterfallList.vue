@@ -13,7 +13,7 @@
         {{ tagName }}
       </el-tag>
     </div>
-    <div v-loading="loading">
+    <div v-loading="loading" v-infinite-scroll="loadMore" :infinite-scroll-disabled="loadingMore || !currentHasMore">
       <template v-if="!loading && currentGuides.length === 0">
         <div class="flex flex-col items-center justify-center py-12">
           <el-empty
@@ -60,9 +60,6 @@
           <el-icon class="is-loading"><Loading /></el-icon>
           <span class="ml-2">加载中...</span>
         </div>
-        <!-- <div v-if="!currentHasMore && currentGuides.length > 0" class="text-center py-4 text-gray-500">
-          没有更多内容了
-        </div> -->
       </template>
     </div>
 
@@ -134,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next'
 import 'vue-waterfall-plugin-next/dist/style.css'
 import { Loading, Close,  } from '@element-plus/icons-vue'
@@ -179,7 +176,13 @@ const currentGuides = computed(() => {
 });
 
 const currentHasMore = computed(() => {
-  return props.tagData[props.activeTag]?.hasMore || false;
+  const hasMore = props.tagData[props.activeTag]?.hasMore || false;
+  console.log('currentHasMore', {
+    activeTag: props.activeTag,
+    hasMore,
+    tagData: props.tagData[props.activeTag]
+  });
+  return hasMore;
 });
 
 const imageLoad = () => {
@@ -215,22 +218,63 @@ const formatDate = (timestamp: number) => {
   });
 };
 
-const handleScroll = () => {
-  const scrollHeight = document.documentElement.scrollHeight;
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-  const clientHeight = document.documentElement.clientHeight;
-  
-  if (scrollHeight - scrollTop - clientHeight < 100 && !props.loadingMore && currentHasMore.value) {
+const loadMore = () => {
+  if (!props.loadingMore && currentHasMore.value) {
+    console.log('触发加载更多', props.activeTag, {
+      loadingMore: props.loadingMore,
+      hasMore: currentHasMore.value
+    });
     emit('loadMore', props.activeTag);
   }
 };
 
+// 添加防抖函数
+const debounce = (fn: Function, delay: number) => {
+  let timer: number | null = null;
+  return (...args: any[]) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn(...args);
+      timer = null;
+    }, delay);
+  };
+};
+
+// 使用防抖的加载更多函数
+const debouncedLoadMore = debounce(loadMore, 300);
+
+// 监听activeTag变化，重置加载状态
+watch(() => props.activeTag, (newTag, oldTag) => {
+  if (newTag !== oldTag) {
+    // 只在标签真正变化时触发加载
+    debouncedLoadMore();
+  }
+});
+
+// 修改 IntersectionObserver 的回调
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && !props.loadingMore && currentHasMore.value) {
+      console.log('IntersectionObserver 触发加载', props.activeTag);
+      debouncedLoadMore();
+    }
+  });
+}, {
+  threshold: 0.1
+});
+
+// 确保组件挂载时设置观察者
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  const container = document.querySelector('.waterfall-container');
+  if (container) {
+    observer.observe(container);
+  }
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  observer.disconnect();
 });
 </script>
 
