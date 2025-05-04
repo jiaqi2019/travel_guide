@@ -5,13 +5,12 @@ const path = require('path');
 async function convertGuides() {
     // 读取data.json文件
     const data = JSON.parse(await fs.readFile('data.json', 'utf8'));
-    console.log('Data structure:', JSON.stringify(data, null, 2));
 
     // 数据库连接配置
     const dbConfig = {
         host: 'localhost',
         user: 'root',
-        password: '123456oo',
+        password: '123456',
         database: 'travel_guide',
         charset: 'utf8mb4'
     };

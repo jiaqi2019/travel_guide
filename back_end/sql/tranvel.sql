@@ -100,3 +100,15 @@ WHERE
     (u.username = 'nature_seeker' AND t.name IN ('自然风光', '高原雪山', '森林徒步', '草原牧场')) OR
     (u.username = 'city_wanderer' AND t.name IN ('城市探索', '海岛度假')) OR
     (u.username = 'adventure_seeker' AND t.name IN ('高原雪山', '沙漠戈壁', '森林徒步'));
+
+-- 插入攻略标签关联数据
+INSERT IGNORE INTO guide_tags (guide_id, tag_id)
+SELECT g.id, t.id
+FROM travel_guides g
+CROSS JOIN tags t
+WHERE 
+    (g.title = '探索巴厘岛的神秘之美' AND t.name IN ('海岛度假', '自然风光')) OR
+    (g.title = '成都美食之旅：舌尖上的川菜盛宴' AND t.name IN ('城市探索', '乡村田园')) OR
+    (g.title = '西藏高原之旅：探索世界屋脊' AND t.name IN ('高原雪山', '自然风光')) OR
+    (g.title = '东京城市探索：传统与现代的完美融合' AND t.name IN ('城市探索')) OR
+    (g.title = '撒哈拉沙漠探险：感受大自然的壮丽' AND t.name IN ('沙漠戈壁', '自然风光'));

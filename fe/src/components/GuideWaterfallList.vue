@@ -65,14 +65,12 @@
 
     <!-- 自定义弹窗 -->
     <div v-if="dialogVisible" class="custom-modal">
-      <div class="modal-overlay" @click="dialogVisible = false"></div>
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="modal-title">{{ currentGuide?.title }}</div>
-          <div class="modal-close" @click="dialogVisible = false">
-            <el-icon><Close /></el-icon>
-          </div>
+      <div class="modal-overlay" @click="dialogVisible = false">
+        <div class="modal-close" @click.stop="dialogVisible = false">
+          <el-icon><Close /></el-icon>
         </div>
+      </div>
+      <div class="modal-content">
         <div class="modal-body">
           <div class="guide-detail-content">
             <!-- 左侧图片轮播 -->
@@ -87,7 +85,7 @@
                 <el-carousel-item v-for="(image, index) in currentGuide?.images" :key="index" class="h-full">
                   <img 
                     :src="image" 
-                    class="max-h-full max-w-full object-contain"
+                    class="h-full w-full object-cover"
                     alt=""
                   />
                 </el-carousel-item>
@@ -310,6 +308,27 @@ onUnmounted(() => {
   backdrop-filter: blur(4px);
 }
 
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+  z-index: 1001;
+  color: white;
+}
+
+.modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-close :deep(.el-icon) {
+  color: white;
+}
+
 .modal-content {
   position: absolute;
   top: 50%;
@@ -322,30 +341,6 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e4e7ed;
-}
-
-.modal-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.modal-close {
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.modal-close:hover {
-  background-color: #f5f7fa;
 }
 
 .modal-body {
