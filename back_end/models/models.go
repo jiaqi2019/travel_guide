@@ -21,18 +21,18 @@ const (
 )
 
 type User struct {
-	ID        uint      `gorm:"primaryKey;autoIncrement"`
-	Username  string    `gorm:"unique;not null;size:50"`
-	Password  string    `gorm:"not null;size:255"`
-	Nickname  string    `gorm:"not null;size:100"`
-	AvatarURL string    `gorm:"size:255"`
-	Role      UserRole  `gorm:"type:enum('admin','user');not null;default:'user'"`
+	ID        uint       `gorm:"primaryKey;autoIncrement"`
+	Username  string     `gorm:"unique;not null;size:50"`
+	Password  string     `gorm:"not null;size:255"`
+	Nickname  string     `gorm:"not null;size:100"`
+	AvatarURL string     `gorm:"size:255"`
+	Role      UserRole   `gorm:"type:enum('admin','user');not null;default:'user'"`
 	Status    UserStatus `gorm:"type:enum('active','banned');not null;default:'active'"`
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
+	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 	DeletedAt *time.Time
 	Guides    []TravelGuide
-	Tags      []Tag     `gorm:"many2many:user_tags;joinForeignKey:user_id;joinReferences:tag_id"`
+	Tags      []Tag `gorm:"many2many:user_tags;joinForeignKey:user_id;joinReferences:tag_id"`
 }
 
 type TravelGuide struct {
@@ -46,7 +46,7 @@ type TravelGuide struct {
 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 	DeletedAt   *time.Time
-	Tags        []Tag     `gorm:"many2many:guide_tags;joinForeignKey:guide_id;joinReferences:tag_id"`
+	Tags        []Tag `gorm:"many2many:guide_tags;joinForeignKey:guide_id;joinReferences:tag_id"`
 }
 
 type Tag struct {
@@ -56,4 +56,11 @@ type Tag struct {
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 	DeletedAt *time.Time
 	Guides    []TravelGuide `gorm:"many2many:guide_tags;joinForeignKey:tag_id;joinReferences:guide_id"`
+}
+
+// UserTag represents the many-to-many relationship between users and tags
+type UserTag struct {
+	UserID    uint      `gorm:"primaryKey;column:user_id"`
+	TagID     uint      `gorm:"primaryKey;column:tag_id"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP;column:created_at"`
 }

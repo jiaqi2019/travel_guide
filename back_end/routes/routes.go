@@ -24,7 +24,7 @@ func SetupRoutes(r *gin.Engine, db *gorm.DB) {
 		guideRoutes.GET("", guideController.GetGuides)
 		guideRoutes.GET("/:id", guideController.GetGuideDetail)
 		guideRoutes.GET("/suggestions", guideController.GetSearchSuggestions)
-		guideRoutes.GET("/search", guideController.SearchGuides)
+		guideRoutes.GET("/search", middleware.OptionalAuthMiddleware(db), guideController.SearchGuides)
 		guideRoutes.GET("/recommendations", middleware.AuthMiddleware(), guideController.GetUserRecommendations)
 	}
 

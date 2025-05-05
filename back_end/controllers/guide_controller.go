@@ -239,6 +239,52 @@ func (gc *GuideController) SearchGuides(c *gin.Context) {
 		guides = guides[:limitInt] // 去掉多查询的一条
 	}
 
+	// 获取当前用户ID（如果存在）
+	userID, exists := c.Get("user_id")
+	if exists {
+		// 收集所有搜索结果中的标签
+		tagMap := make(map[uint]models.Tag)
+		for _, guide := range guides {
+			for _, tag := range guide.Tags {
+				tagMap[tag.ID] = tag
+			}
+		}
+
+		// 将收集到的标签添加到用户的标签中
+		if len(tagMap) > 0 {
+			// 获取用户现有的标签，按创建时间排序
+			var existingUserTags []models.UserTag
+			gc.db.Where("user_id = ?", userID).Order("created_at DESC").Find(&existingUserTags)
+
+			// 创建现有标签ID的map用于快速查找
+			existingTagMap := make(map[uint]bool)
+			for _, userTag := range existingUserTags {
+				existingTagMap[userTag.TagID] = true
+			}
+
+			// 添加新标签
+			for _, tag := range tagMap {
+				if !existingTagMap[tag.ID] {
+					// 检查添加新标签后是否会超过5个标签
+					if len(existingUserTags) >= 5 {
+						// 如果已经有5个标签，删除最旧的标签
+						oldestTag := existingUserTags[len(existingUserTags)-1]
+						gc.db.Delete(&oldestTag)
+						existingUserTags = existingUserTags[:len(existingUserTags)-1]
+					}
+
+					// 添加新标签
+					newUserTag := models.UserTag{
+						UserID: userID.(uint),
+						TagID:  tag.ID,
+					}
+					gc.db.Create(&newUserTag)
+					existingUserTags = append([]models.UserTag{newUserTag}, existingUserTags...)
+				}
+			}
+		}
+	}
+
 	// 转换响应格式
 	guideResponses := make([]types.GuideResponse, 0, len(guides))
 	for _, guide := range guides {

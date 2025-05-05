@@ -101,6 +101,40 @@ func AdminMiddleware(db *gorm.DB) gin.HandlerFunc {
 	}
 }
 
+// OptionalAuthMiddleware adds user info to context if available but doesn't require authentication
+func OptionalAuthMiddleware(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.Next()
+			return
+		}
+
+		// 检查Bearer token格式
+		parts := strings.Split(authHeader, " ")
+		if len(parts) != 2 || parts[0] != "Bearer" {
+			c.Next()
+			return
+		}
+
+		tokenString := parts[1]
+		claims := &JWTClaims{}
+
+		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+			return []byte(getEnv("JWT_SECRET_KEY", "")), nil
+		})
+
+		if err != nil || !token.Valid {
+			c.Next()
+			return
+		}
+
+		// 将用户ID存储到上下文中
+		c.Set("user_id", claims.UserID)
+		c.Next()
+	}
+}
+
 // getEnv 获取环境变量，如果不存在则返回默认值
 func getEnv(key, defaultValue string) string {
 	value := os.Getenv(key)

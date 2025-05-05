@@ -86,10 +86,6 @@ const fetchGuides = async (tag: string, reset = false) => {
 
 const handleTagClick = (tagName: string) => {
   activeTag.value = tagName;
-  // 如果该tag的数据为空，则加载数据
-  if (tagData.value[tagName].guides.length === 0) {
-    fetchGuides(tagName, true);
-  }
 };
 
 // 监听 keyword 变化
@@ -106,13 +102,11 @@ watch(keyword, (newKeyword) => {
     };
     // 重新获取数据
     fetchTags();
-    fetchGuides('全部', true);
   }
 }, { immediate: true });
 
 onMounted(() => {
   fetchTags();
-  fetchGuides('全部', true);
 });
 
 </script>
