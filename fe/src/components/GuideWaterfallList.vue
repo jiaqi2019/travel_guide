@@ -218,10 +218,6 @@ const formatDate = (timestamp: number) => {
 
 const loadMore = () => {
   if (!props.loadingMore && currentHasMore.value) {
-    console.log('触发加载更多', props.activeTag, {
-      loadingMore: props.loadingMore,
-      hasMore: currentHasMore.value
-    });
     emit('loadMore', props.activeTag);
   }
 };
@@ -251,29 +247,6 @@ watch(() => props.activeTag, (newTag, oldTag) => {
   }
 });
 
-// 修改 IntersectionObserver 的回调
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting && !props.loadingMore && currentHasMore.value) {
-      console.log('IntersectionObserver 触发加载', props.activeTag);
-      debouncedLoadMore();
-    }
-  });
-}, {
-  threshold: 0.1
-});
-
-// 确保组件挂载时设置观察者
-onMounted(() => {
-  const container = document.querySelector('.waterfall-container');
-  if (container) {
-    observer.observe(container);
-  }
-});
-
-onUnmounted(() => {
-  observer.disconnect();
-});
 </script>
 
 <style scoped>
