@@ -5,8 +5,9 @@ const { promisify } = require('util');
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 
+// Aliyun OSS configuration
 const client = new OSS({
-    region: '', // Replace with your region
+    region: 'oss-cn-beijing', // Replace with your region
     accessKeyId: '', // Replace with your access key id
     accessKeySecret: '', // Replace with your access key secret
     bucket: 'user-avatar-test' // Replace with your bucket name
@@ -48,6 +49,7 @@ async function getRandomUserId() {
 // Main function to process the data
 async function processData() {
     const sqlStatements = [];
+    let guideId = 1; // Counter for guide IDs
     
     for (const guide of data) {
         // Get all images from the specified directory
@@ -67,8 +69,9 @@ async function processData() {
         // Get random user ID
         const userId = await getRandomUserId();
         
-        // Create SQL insert statement
-        const sql = `INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+        // Create SQL insert statement for travel guide
+        const guideSql = `INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            ${guideId},
             '${guide.title.replace(/'/g, "''")}',
             '${guide.desc.replace(/'/g, "''")}',
             '${JSON.stringify(imageUrls)}',
@@ -76,7 +79,16 @@ async function processData() {
             NOW()
         );`;
         
-        sqlStatements.push(sql);
+        sqlStatements.push(guideSql);
+        
+        // Add tag association using the guide's tag field
+        if (guide.tag) {
+            const tagSql = `INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT ${guideId}, id FROM tags WHERE name = '${guide.tag}';`;
+            sqlStatements.push(tagSql);
+        }
+        
+        guideId++;
     }
     
     // Write SQL statements to file

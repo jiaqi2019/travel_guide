@@ -466,7 +466,7 @@ func (gc *GuideController) GetUserRecommendations(c *gin.Context) {
 
 	// 添加关键词搜索条件
 	if keyword != "" {
-		query = query.Where("(travel_guides.title LIKE ? OR travel_guides.content LIKE ?)", 
+		query = query.Where("(travel_guides.title LIKE ? OR travel_guides.content LIKE ?)",
 			"%"+keyword+"%", "%"+keyword+"%")
 	}
 
@@ -493,9 +493,9 @@ func (gc *GuideController) GetUserRecommendations(c *gin.Context) {
 
 	c.JSON(http.StatusOK, types.SuccessResponse(
 		gin.H{
-			"list":    guideResponses,
-			"hasMore": hasMore,
-			"total":   total,
+			"list":     guideResponses,
+			"has_more": hasMore,
+			"total":    total,
 		},
 		"获取推荐成功",
 	))

@@ -1,4 +1,5 @@
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            1,
             '《国家地理》强烈推荐！一生必去的9个地方！',
             '中国的风景美如画，
 喜欢旅行，却又不懂方向今天就跟着《国家地理》一起看看一生必去的9个地方到底有多美！
@@ -13,12 +14,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 🌴甘南🌈精华景点：桑科草原、拉卜楞寺、甘加秘境、尕海湖、郎木寺、扎尕那、莲宝叶则、黄河第一湾、洛克之路👍美食推荐：烤羊排、藏包子、藏氏血肠、酥油茶、酥油土豆泥、手工酸奶、肉巴勒
 🌴内蒙古🌈精华景点：呼伦贝尔大草原、满洲里国门、胡杨林景区、腾格里沙漠、鄂尔多斯草原👍美食推荐：烧麦、炖羊棒骨、炖羊肉、蒙古族早茶、羊杂碎、甜奶酪馅饼、山楂奶皮冰糕、奶豆腐馅饼
 #地理科普[话题]# #穷游攻略[话题]# #自由行[话题]# #无滤镜旅行攻略[话题]# #旅游攻略[话题]# #我的小众旅行攻略[话题]# #旅行推荐官[话题]# #旅行[话题]# #旅游推荐[话题]# #我的旅行日记[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868179-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868286-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868332-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868491-4.jpg"]',
-            4,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426668692-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426668835-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426668889-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426669044-4.jpg"]',
+            3,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 1, id FROM tags WHERE name = '自然风光';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            2,
             '北京出发2h，我以为到了桂林！附攻略',
             '都说桂林山水甲天下！殊不知，在距北京车程2小时的地方就有一个“小桂林”，山色空蒙，水光潋滟，美如仙境！这里就是河北保定易水湖！
 👉4A景区，山势雄奇险峻，湖水碧波荡漾，山水相间，一步一景；
@@ -59,12 +64,16 @@ day1:易水湖—太行水镇—住白石山附近
 day2:游玩白石山（徒步）
 	
 #国庆我要慢慢玩[话题]# #我的小众旅行攻略[话题]# #国庆划得来逛吃指南[话题]# #本地人才知道的小众景点[话题]##小众旅行地[话题]##推荐一些旅行平替[话题]##北京周边游[话题]##周未去哪儿[话题]##易水湖[话题]##北京周末去哪儿[话题]##亲子户外[话题]##秋游入山去[话题]##北京自驾游[话题]# #京津冀周边游[话题]##每周一山[话题]##保定旅游[话题]##中秋假期[话题]##中秋去哪儿玩[话题]##京津小众周边游[话题]##北京旅游攻略[话题]##自然风光分享[话题]#@户外薯@生活薯',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868667-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370868855-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869387-3%E7%89%88.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869467-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869526-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869677-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869846-7.jpg"]',
-            5,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426669219-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426669396-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426669890-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426669983-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670034-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670183-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670363-7.jpg"]',
+            2,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 2, id FROM tags WHERE name = '自然风光';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            3,
             '北京这10大宝藏遛娃地一定不能错过❗快收藏',
             '自从有娃后，对于京郊适合遛娃的自然风景都很感兴趣，如果你在找这种有山有水有草坪还有漂亮建筑的地方，看这篇就对啦！
 北京周边🚗自驾1-2小时的10个宝藏地
@@ -133,20 +142,28 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 👉🏻也会分享给大家更多性价比高的民宿哦~
 	
 #亲子游[话题]# #石林峡[话题]#  #小众旅行地[话题]# #延庆[话题]# #北京周末去哪儿[话题]##百里画廊[话题]#  #北京周边游[话题]##京郊游[话题]# #雁栖湖[话题]#  #攻略[话题]# #六一[话题]#   #北京遛娃好去处[话题]# #遛娃好去处[话题]# #海坨山谷[话题]# #北京拍照打卡[话题]# #旅行攻略[话题]# #笔记灵感[话题]#  #反向旅游[话题]# #团建[话题]# #端午节[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370869903-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870085-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870268-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870423-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870543-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870726-6.jpg"]',
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670429-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670598-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670783-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426670944-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426671069-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426671259-6.jpg"]',
+            6,
+            NOW()
+        );
+
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 3, id FROM tags WHERE name = '自然风光';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            4,
+            '《国家地理》评选出20个一生最值得去的地方',
+            '看看你去过几个?#旅游攻略[话题]# #旅游[话题]# #值得去的地方[话题]# #旅游推荐[话题]# #旅行推荐官[话题]# #小红书涨粉[话题]# #国家地理[话题]#',
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426671487-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426671683-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426671841-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672024-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672097-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672194-6.jpg"]',
             4,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
-            '《国家地理》评选出20个一生最值得去的地方',
-            '看看你去过几个?#旅游攻略[话题]# #旅游[话题]# #值得去的地方[话题]# #旅游推荐[话题]# #旅行推荐官[话题]# #小红书涨粉[话题]# #国家地理[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370870942-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871135-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871597-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871749-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871813-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871884-6.jpg"]',
-            1,
-            NOW()
-        );
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 4, id FROM tags WHERE name = '自然风光';
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            5,
             '玩遍全国｜大家看看这个路线怎么样？',
             '上一篇规划了一条路线，大家觉得有些城市没有圈到，我又重新规划了一条环游路线，大家快给我提提意见[飞吻R][飞吻R][飞吻R]
 ·
@@ -158,12 +175,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 ✅穿搭：外套，早晚有温差，平底鞋/运动鞋、内衣裤
 ✅其他：洗发水、沐浴露、洗面奶、毛巾、一次性马桶垫，出行：旅行zui贵的就是车费和住宿了，记得要货比三家，智xing上一般比其他艾皮皮便宜哦
 #小众旅行地[话题]# #穷游攻略[话题]# #旅游攻略[话题]# #旅游路线[话题]# #我的私藏旅游路线[话题]# #旅游路线规划[话题]# #旅行[话题]# #大学生[话题]# #大学生旅游[话题]# #大学生穷游[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370871950-1.jpg"]',
-            4,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672298-1.jpg"]',
+            1,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 5, id FROM tags WHERE name = '城市探索';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            6,
             '✔️一键生成旅游路线app｜适合懒人功能齐',
             '第1步：
 打开十六番@十六番APP  ，选择任意地区，打开任意一张懒人地图（以南京为例，见图三四）
@@ -183,12 +204,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 选择路线颜色，然后点击地图上景点/美食，路线就会按照点击的顺序规划出来了。可以选不同颜色区分第一天路线、第二天路线...（见图十三）
 懒得做攻略的朋友可以看看其他网友规划的南京路线（见图十四、十五）
 #旅游攻略[话题]# #旅游[话题]# #旅游路线[话题]# #周末去哪儿[话题]# #出行攻略[话题]# #旅行推荐官[话题]# #旅行[话题]# #旅行必备[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872026-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872489-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872634-3.jpg"]',
-            2,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672451-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426672977-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673153-3.jpg"]',
+            4,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 6, id FROM tags WHERE name = '城市探索';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            7,
             '春季限定｜亮马河 三里屯Citywalk🌸赏花版～',
             '最近天气太好了 必须走起来了！路边还可以赏花～
 	
@@ -225,12 +250,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 ⚠️总结：亮马河北岸 花多一些 喷泉和夜晚拍照 比较加分 三里屯五街五号院🌷玉兰没有开 预计还要一两周 如果时间充裕也可以从十里堡开始 里朝阳公园2站地铁～
 	
 #北京周末去哪儿[话题]##亮马河[话题]##三里屯[话题]##春天开幕式[话题]##交换春天[话题]##北京旅游攻略[话题]##北京赏花[话题]##北京拍照打卡[话题]##花情实况播报[话题]##citywalk北京[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872746-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872800-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370872893-3.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673269-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673331-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673429-3.jpg"]',
+            6,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 7, id FROM tags WHERE name = '城市探索';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            8,
             '💕9大绝美免签海岛大揭秘！',
             '1️⃣ 马尔代夫：中国公民免签，单次停留不超过30天。必游马累岛及众多奢华度假海岛。特色美食马尔代夫式炸鱼球搭配甜香多迪。这里也是梦寐以求的蜜月度假天堂。
 2️⃣ 巴厘岛：对中国公民免签，单次停留不超过30天。必游乌布皇宫、海神庙和金巴兰海滩。特色美食有爹沙和脏鸭餐。巴厘岛是全球知名的婚礼举办胜地。
@@ -242,12 +271,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 8️⃣ 苏梅岛：对中国护照持有者免签，单次停留不超过30天。必游查汶海滩、拉迈海滩和安通国家海洋公园。特色美食有冬阴功汤、芒果饭和咖喱蟹。苏梅岛宁静祥和，适合放松身心。
 9️⃣ 大溪地：对中国公民实行团队免签政策，单次停留不超过14天。必游波拉波拉岛、茉莉雅岛和大溪地岛。特色美食有椰子蟹和玛阿饼。大溪地的浮潜体验堪称一绝，能近距离感受海底世界的奇妙。
 #国外游[话题]# #境外游[话题]# #环游世界[话题]# #自然风光[话题]# #人文景点分享[话题]# #景点打卡[话题]# #外国游[话题]# #海岛度假[话题]# #免签海岛[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370873153-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370873360-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370873495-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370873616-4.jpg"]',
-            6,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673680-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426673896-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674043-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674209-4.jpg"]',
+            5,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 8, id FROM tags WHERE name = '海岛度假';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            9,
             '这六个岛🏝️真的免签，冲！',
             '2025旅行计划安排上了吗？这6个免签海岛🏝️拿起护照就能出发！
 	
@@ -288,12 +321,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 🔸注意保护珊瑚礁，避免触碰海洋生物
 	
 无论你是追求奢华体验还是自然探险，海岛旅游都能满足你的需求。选择一个适合你的目的地，开始你的海岛之旅吧！🤗🤗#免签[话题]# #海岛游[话题]# #旅行必去之地[话题]# #出国游[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370873827-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874002-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874084-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874236-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874350-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874466-6.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674391-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674580-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674680-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674831-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426674969-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675078-6.jpg"]',
+            5,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 9, id FROM tags WHERE name = '海岛度假';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            10,
             '2k+就能get的快乐！不同预算，怎么选海岛？',
             '🔥海岛度假攻略！
 	
@@ -344,12 +381,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 [海岛旅游 预 定]👉戳我了解详情~
 	
 ﻿#海岛度假[话题]#﻿ ﻿#海岛游[话题]#﻿ ﻿#出国旅游[话题]#﻿ ﻿#仙本那[话题]#﻿ ﻿#巴厘岛[话题]#﻿ ﻿#普吉岛旅行[话题]#﻿ ﻿#仙本那跳岛游[话题]#﻿ ﻿#果冻海[话题]#﻿ ﻿#玻璃海[话题]#﻿ ﻿#浮潜[话题]#﻿',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874634-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874724-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874842-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370874952-4.jpg"]',
-            6,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675244-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675356-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675488-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675703-4.jpg"]',
+            3,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 10, id FROM tags WHERE name = '海岛度假';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            11,
             '🌼 顺义千亩花海 | 闯入宫崎骏的油画里',
             '📍 地址
 顺义楼台村千亩花海（导航直接定位“顺义楼台村”或“顺义千亩花海”即可）
@@ -382,12 +423,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 这里的金黄，比梵高的向日葵更炽热🌻”
 ✨ 快去收藏这片秘密花园，抓住春天的尾巴吧！ ✨
 #田野和季风[话题]# #麦田拍照[话题]# #风吹麦浪的季节[话题]# #蓝天白云草地[话题]# #草原上的夏天[话题]# #夏天总要去趟草原吧[话题]# #带你去看花海[话题]# #带你一起看草原[话题]# #麦田[话题]# #我在草原等你来[话题]# #带你一起去看美丽的大草原[话题]# #治愈系的蓝天白云绿草地[话题]# #草原风光无限好[话题]# #漫画般的旅行地[话题]# #北京溜娃[话题]# #京郊[话题]##北京拍照[话题]# #北京周末去哪儿[话题]# #北京周末溜娃[话题]# @小红书成长助手',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875052-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875180-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875262-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875538-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875616-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875673-6.jpg"]',
-            3,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675800-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675881-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426675935-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676009-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676109-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676175-6.jpg"]',
+            6,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 11, id FROM tags WHERE name = '乡村田园';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            12,
             '✨逃离城市！超治愈的乡村文旅玩法📷',
             '🌾最近迷上了往村里跑！青山绿水、稻田星空，比网红景点香多了！整理了一波【乡村文旅天花板攻略】，拍照、遛娃、躺平全满足，速速码住！👇
 🌿 Part 1：打卡乡村のN种姿势
@@ -423,12 +468,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 🚌 互动时间
 → 你心中的“宝藏乡村”是哪里？求反向安利！
 🔖 #乡村振兴[话题]# #小众旅行地[话题]# #周末去哪儿[话题]# #治愈系风景[话题]# #旅行拍照[话题]##乡村[话题]# #文旅[话题]# #城市周边游[话题]# #旅行[话题]# #乡村旅游节[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875724-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875832-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875897-3.jpg"]',
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676245-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676424-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676539-3.jpg"]',
             3,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 12, id FROM tags WHERE name = '乡村田园';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            13,
             '京西小众油菜花田已美成童话世界（附攻略）',
             '4月底，北京的油菜花开了📢
 温榆河公园油菜花梯田已人山人海
@@ -451,12 +500,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 📅：4.28-5.10
 	
 #北京约拍[话题]# #北京拍照打卡[话题]# #北京拍照[话题]# #北京小众拍照地[话题]# #北京小众景点[话题]# #北京周末去哪儿[话题]# #北京周末好去处[话题]# #北京周末去哪玩[话题]# #北京周末遛娃[话题]# #北京遛娃好去处[话题]# #北京露营[话题]# #北京露营地[话题]# #北京油菜花[话题]# #北京油菜花田[话题]# #温榆河油菜花[话题]# #周末去哪儿[话题]# #北京赏花[话题]# #北京赏花推荐[话题]# #北京五一去哪[话题]# #北京五一去哪玩[话题]# #笔记灵感[话题]# #迈入人间五月天[话题]# #前方实况报道[话题]# #跟风最成功的一次[话题]# #假期上分日记[话题]# #北京赏花[话题]# #北京赏花推荐[话题]# #北京赏花推荐地[话题]#  #温榆河公园[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370875990-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370876238-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370876450-3.jpg"]',
-            6,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676735-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426676979-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426677468-3.jpg"]',
+            2,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 13, id FROM tags WHERE name = '乡村田园';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            14,
             '梅里雪山已回，没做攻略真没必要去了❗️',
             '梅里雪山“日照金山”真的很美！但不做攻略真没必要去，很容易踩雷的！！！
 1️⃣在梅里呆几天？
@@ -478,12 +531,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 🔸🔍mountain-forecast➡️顶部搜索框🔍Kawagebo（卡瓦格博主峰）➡️点击右上角的箭头展开日期，就能看到精确到时段的天气情况！只要是大太阳基本都能看到日照金山🌄
 🔸一定要准备晕车💊，氧气等高反药物
 #先出发再说[话题]# #来拍照了[话题]# #向雪山走去[话题]# #看雪山民宿[话题]# #那些被雪山治愈的瞬间[话题]# #雪山上的风景[话题]# #雪山[话题]# #假期去哪玩[话题]# #五一去哪玩[话题]# #梅里雪山[话题]##梅里雪山日照金山[话题]##梅里雪山攻略[话题]##梅里雪山日照金山当天往返[话题]##梅里雪山日照金山概率[话题]##梅里雪山飞来寺[话题]# #梅里雪山拼车[话题]##梅里雪山国家公园雾浓顶[话题]##梅里雪山日照金山旅游攻略[话题]##梅里雪山包车[话题]##藏山云居酒店[话题]##雾浓顶[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370876730-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370876944-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877040-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877161-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877275-5.jpg"]',
-            4,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426677633-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426677746-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426677832-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678007-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678130-5.jpg"]',
+            1,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 14, id FROM tags WHERE name = '高原雪山';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            15,
             '清明、五一假期入门级雪山，看这一篇就够！',
             '⚠️ ​风险提示：
 ✅假期需尽早安排行程预约，以免人多临时找不向导
@@ -491,12 +548,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 ✅7-8月雨季慎选川西/云南线，12-2月青藏高原风速达7-8级
 ✅必备装备：高帮防水登山鞋（碎石坡占比80%）、-15℃抗寒衣物、血氧监测仪
 更多细节可查阅各登山团队官方行程（如自由之巅、成都大鹅文化等），对比服务透明度与安全保障。﻿#雪山[话题]#﻿ ﻿#人生第一座雪山[话题]#﻿ ﻿#哈巴雪山[话题]#﻿ ﻿#岗什卡[话题]#﻿ ﻿#入门级雪山[话题]#﻿ ﻿#四姑娘山[话题]#﻿',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877426-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877562-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877686-3.jpg"]',
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678287-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678430-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678569-3.jpg"]',
             4,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 15, id FROM tags WHERE name = '高原雪山';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            16,
             '登顶人生第一座雪山！哈巴雪山保姆级攻略',
             '“我终于站在了云端”！
 哈巴雪山，被户外圈称为“人生第一座雪山”，海拔5396米，是无数登山小白的梦想起点。作为刚成功登顶的“雪山新人”，这篇攻略将用血泪经验告诉你：如何用3天时间征服这座神山！（附超详细行程+避坑指南）
@@ -534,12 +595,16 @@ Day3：冲顶日！大本营→5396米→返回
 “站在5396米的那一刻，所有疲惫都被云海治愈了。原来人生真的没有白走的路，每一步都算数。”
 回程路上，向导说：“雪山接纳有缘人。”也许这就是户外的魅力——教会我们敬畏自然，也挑战自我。
 #哈巴雪山[话题]##人生第一座雪山[话题]# #云南旅游[话题]##户外徒步[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877828-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370877973-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878088-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878219-4.jpg"]',
-            4,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678730-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426678874-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679007-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679142-4.jpg"]',
+            1,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 16, id FROM tags WHERE name = '高原雪山';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            17,
             '四天三晚玄奘之路攻略|沙漠徒步|戈壁徒步',
             '去感受戈壁，当把自己丢进戈壁的旷野中
 才发现，来这里徒步这件事
@@ -562,12 +627,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 饮食保障 专业营地组搭建帐篷，大家真的不用担心太多，而且出发之前会有医护人员给你体检的，如果你的身体条件不允许可能想去也没有的去呢哈哈，[偷笑R][偷笑R]
 短短的四天时间可能是挫折和痛苦的经历，那更多是的收获，有看不见的星河旷野，有三天不洗澡也能很开心的感受，有新的朋友[飞吻R]
 这条路，无尽 长赢，用脚丈量的每一步，才发现我值得这世间所有的美好。[赞R][飞吻R][赞R][飞吻R]#徒步丈量世界[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878315-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878407-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878524-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878674-4.jpg"]',
-            3,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679240-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679350-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679459-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679599-4.jpg"]',
+            2,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 17, id FROM tags WHERE name = '沙漠戈壁';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            18,
             '库木塔格沙漠',
             '🌵乌鲁木齐→库木塔格沙漠｜沙漠大片+美食躺平攻略！懒人必存🏜️
 🚗交通：高铁or自驾都超香！
@@ -609,12 +678,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 ---
 ✨沙漠穿搭OOTD：工装裤+马丁靴（酷飒风）、红色长裙（异域大片）、民族风披肩（防风又上镜）！
 #总要看一次沙漠吧[话题]# #新疆旅游[话题]# #荒凉又浪漫的大西北[话题]# #沙漠[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878764-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878824-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878876-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878927-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370878974-5.jpg"]',
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679719-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679780-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679834-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679893-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426679943-5.jpg"]',
             3,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 18, id FROM tags WHERE name = '沙漠戈壁';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            19,
             '五湖连穿必收藏！腾格里4日徒步攻略',
             '"在沙漠腹地数星星✨这届年轻人正在解锁地球蕞孤独的浪漫"
 🏜人生总要有一次沙漠徒步！
@@ -634,12 +707,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 ▫带红色披肩/墨镜当拍照道具
 ▫无人机30米高度拍沙漠纹理
 #徒步丈量世界[话题]# #户外徒步[话题]# #徒步[话题]# #新手徒步[话题]# #腾格里沙漠徒步[话题]# #五湖穿越[话题]# #徒步路线推荐[话题]# #腾格里沙漠徒步攻略[话题]# #五一去哪玩[话题]# #亲子徒步[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879083-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879248-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879332-3.jpg"]',
-            2,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680088-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680232-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680320-3.jpg"]',
+            6,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 19, id FROM tags WHERE name = '沙漠戈壁';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            20,
             '北京徒步天花板！可以一日往返的京郊小瑞士',
             '不是新疆！更不是瑞士！高山草甸、遍野牛羊、山间小溪、好看的云朵和松针林构成了这里如画的美景，这里就是徒步爱好者热门地—河北张家口小天山麻田岭。
 	
@@ -665,12 +742,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 👉更多北京徒步好去处可查看“北京徒步合集”
 	
 #大自然专治所有不开心[话题]##肆意地感受夏天[话题]# #户外徒步[话题]# #每周一山[话题]# #徒步路线推荐[话题]# #我被徒步治愈了[话题]##自然风光分享[话题]# #寻找野生户外人[话题]##北京徒步[话题]# #户外穿搭[话题]# #powster[话题]# #户外转场任意门[话题]##治愈系风景[话题]# #那远山呼唤我[话题]# #我的生命就应该浪费在这种地方[话题]# #户外人有自己的阿勒泰[话题]# #徒步[话题]# #我的徒步日记[话题]##北京徒步[话题]# #京郊游[话题]# #户外登山徒步[话题]##北京周末去哪儿[话题]# #野孩子召集令[话题]# #户外影像周[话题]# #出发吧轻徒步[话题]##北京周边游[话题]# #小众旅行地[话题]##北京户外[话题]##户外[话题]##徒步丈量世界[话题]# #一起享受大自然的美[话题]# #户外[话题]##大自然[话题]##@户外薯 @城市情报官 @薯队长 @小红书成长笔记',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879462-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879667-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370879931-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880207-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880383-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880584-6.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680466-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680671-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426680946-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426681218-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426681398-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426681619-6.jpg"]',
+            4,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 20, id FROM tags WHERE name = '森林徒步';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            21,
             '徒步长白山的正确攻略☘️',
             '长白山原始森林在夏季（6-9月）是最富生机的季节，高山花海绽放，溪流潺潺，森林郁郁葱葱。
 一、天气与着装：应对多变的森林气候
@@ -694,12 +775,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 - 特点：原始森林、悬崖观景台
 - 难度：★★★☆☆
 ⚠建议：全程跟好向导#长白山[话题]# #长白山天池[话题]# #长白山旅游[话题]# #徒步雪谷穿越[话题]# #徒步路线推荐[话题]# #原始森林徒步[话题]# #户外徒步旅行[话题]# #小红书徒步山野[话题]# #vlog[话题]# #旅游攻略[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880759-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880899-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370880976-3.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426681821-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426681965-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426682042-3.jpg"]',
+            5,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 21, id FROM tags WHERE name = '森林徒步';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            22,
             '误入仙境，天然氧吧，迷雾森林 🌳🌲🐿️',
             '📍位置：国家植物园北园•樱桃沟
 	
@@ -713,12 +798,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 	
 🌈我们是早上8点多到门口，慢慢溜达步行前往樱桃沟，中途不去其它景点，直奔樱桃沟水衫林，防止错过喷雾，而且去的早能找个好位置拍拍照，木栈道人太多了！返程可以根据需求去其它景点游玩，我们去了卧佛寺，门票🎫也是5元/人，卧佛寺门口有摆渡车，可坐车（20元/人），也可步行到景区门口，景区环境很好，有很多小松鼠🐿️，樱桃沟还是很值得去的，云雾缭绕，仙境一般，非常治愈。大片水杉林，也不会晒，周末没事去吸吸氧吧！🌳
 #一起去山林吸氧[话题]# #徒步好风景[话题]# #感受大自然的气息和美景[话题]# #徒步随手拍[话题]# #一起享受大自然的美[话题]# #国家植物园北园[话题]# #樱桃沟[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370881077-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370881353-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370881608-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370881822-4.jpg"]',
-            3,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426682134-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426682438-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683001-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683132-4.jpg"]',
+            6,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 22, id FROM tags WHERE name = '森林徒步';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            23,
             '百里天路超全攻略|北京丰宁坝上自驾',
             '丰宁坝上草原百里天路全长100公里，共有三环两湖十二景，是丰宁坝上草原最值得去的景区，一路上山峦起伏、牛羊成群、草原无垠、森林茂密，非常适合自驾游览，体验感太好了。
 这里夏季平均气温只有20度，是远近闻名的避暑胜地。
@@ -742,12 +831,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 →自驾天路的时候可以自带食物，比如自嗨锅等午餐露营，就不用找吃饭的地方了，会玩的更好。
 →景区内厕所不多，尤其后段
 →骑马可以选择祁家大院附近的马场，环境好，场地美也便宜。骑马的时候一定不要站在马的后面，会很危险的',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882060-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882237-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882322-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882441-4.jpg"]',
-            4,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683243-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683416-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683506-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683658-4.jpg"]',
+            3,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 23, id FROM tags WHERE name = '草原牧场';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            24,
             '那拉提的最全攻略‼️‼️‼️',
             '🌿 那拉提 · 风的形状，绿的诗行
 「在这里，连呼吸都是高清的。」
@@ -773,12 +866,16 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 - 4月（杏花季）：那拉提杏花谷3万亩野杏花绽放，如粉色云霞，适合赏花摄影。
 - 冬季（12-3月）：雪景壮美，可体验雪地骑马、篝火晚会，但部分景区可能关闭。
 #新疆旅游[话题]# #那拉提[话题]# #小众旅游[话题]# #旅游攻略[话题]# #文旅[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882594-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882705-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882864-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370882952-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883026-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883134-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883399-7.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683824-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426683935-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684094-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684172-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684251-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684369-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684663-7.jpg"]',
+            4,
             NOW()
         );
 
-INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES (
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 24, id FROM tags WHERE name = '草原牧场';
+
+INSERT INTO travel_guides (id, title, content, images, user_id, published_at) VALUES (
+            25,
             '‼️能劝一个是一个😭新疆伊犁避坑指南🌸',
             '7-8月是伊犁旅游的黄金时期，森林草原无边的绿🌲，清晰可见的高山映衬着⛰️，伴着星空🌌、花海🌸、牛羊🐎……
 	
@@ -808,7 +905,10 @@ INSERT INTO travel_guides (title, content, images, user_id, published_at) VALUES
 💙总要去一趟新疆吧，趁着风光正好，出发🚗
 	
 #新疆旅游[话题]# #新疆旅游攻略[话题]# #北疆[话题]# #伊犁[话题]# #赛里木湖[话题]# #夏塔[话题]# #喀拉峻[话题]# #唐布拉[话题]# #伊宁六星街[话题]# #恰西[话题]#',
-            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883690-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883784-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370883860-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370884180-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370884252-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370884323-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746370884395-7.jpg"]',
-            1,
+            '["http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426684965-1.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685067-2.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685157-3.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685256-4.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685352-5.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685471-6.jpg","http://user-avatar-test.oss-cn-beijing.aliyuncs.com/guides/1746426685613-7.jpg"]',
+            4,
             NOW()
         );
+
+INSERT IGNORE INTO guide_tags (guide_id, tag_id) 
+                SELECT 25, id FROM tags WHERE name = '草原牧场';
